@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -18,11 +19,11 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store()
+    public function store(PostRequest $request)
     {
         $post = new Post;
-        $post->title = request('title');
-        $post->body = request('body');
+        $post->title = $request->title;
+        $post->body = $request->body;
         $post->created_at = now();
         $post->updated_at = now();
         $post->save();
@@ -44,11 +45,11 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
-    public function update($id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::find($id);
-        $post->title = request('title');
-        $post->body = request('body');
+        $post->title = $request->title;
+        $post->body = $request->body;
         $post->updated_at = now();
         $post->save();
 

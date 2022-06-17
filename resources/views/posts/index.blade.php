@@ -28,10 +28,15 @@
                                 <td>{{ $post->id }}</td>
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->body }}</td>
-                                <td>
-                                    <a href="/posts/show/{{ $post->id }}" class="btn btn-info">Detail</a>
-                                    <a href="/posts/edit/{{ $post->id }}" class="btn btn-warning">Edit</a>
-                                    <a href="/posts/delete/{{ $post->id }}" class="btn btn-danger">Delete</a>
+                                <td style="width: 300px">
+                                    <form action="/posts/{{ $post->id }}" method="post" onsubmit="return confirm('Are you sure want to delete?')">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <a href="/posts/{{ $post->id }}" class="btn btn-info">Detail</a>
+                                        <a href="/posts/{{ $post->id }}/edit" class="btn btn-warning">Edit</a>
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

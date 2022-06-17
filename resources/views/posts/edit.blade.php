@@ -14,16 +14,23 @@
                 <a href="/posts" class="btn btn-secondary float-end">Back</a>
                 <h3>Post Edit</h3>
                 <div class="card p-3 my-3 bg-light">
-                    <form action="/posts/update/{{ $post->id }}" method="post">
+                    <form action="/posts/{{ $post->id }}" method="post">
                         @csrf
+                        @method('PUT')
                         
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Title</b></label>
                             <input type="text" name="title" class="form-control" placeholder="Enter Title" value="{{ $post->title }}">
+                            @error('title')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Body</b></label>
                             <textarea name="body" class="form-control" rows="3" placeholder="Enter Body">{{ $post->body }}</textarea>
+                            @error('body')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between">
