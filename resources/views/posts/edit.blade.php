@@ -1,9 +1,6 @@
 @extends('layouts.master')
 
-@section('title')
- Post Edit
-@endsection
-
+@section('title', 'Post Edit')
 @section('content')
     <div class="row justify-content-center py-5">
         <div class="col-8">

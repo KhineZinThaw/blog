@@ -1,9 +1,6 @@
 @extends('layouts.master')
 
-@section('title')
-  {{ $category->name }}
-@endsection
-
+@section('title', $category->name)
 @section('content')
     <div class="row justify-content-center py-5">
         <div class="col-8">

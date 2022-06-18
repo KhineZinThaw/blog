@@ -1,8 +1,6 @@
 @extends('layouts.master')
 
-@section('title')
- Category List
-@endsection
+@section('title', 'Category List')
 
 @section('content')
     <div class="row justify-content-center py-5">
