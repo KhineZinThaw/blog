@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class LoginController extends Controller
         return  view('auth.login');
     }
 
-    public function store(Request $request)
+    public function store(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
 
