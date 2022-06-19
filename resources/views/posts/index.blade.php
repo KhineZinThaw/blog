@@ -29,14 +29,16 @@
                         <td>{{ $post->title }} <br>{{ $post->created_at->diffForHumans() }}</td>
                         <td>{{ $post->body }}</td>
                         <td style="width: 300px">
-                            <form action="/posts/{{ $post->id }}" method="post" onsubmit="return confirm('Are you sure want to delete?')">
-                                @csrf
-                                @method('DELETE')
-                                
-                                <a href="/posts/{{ $post->id }}" class="btn btn-info">Detail</a>
-                                <a href="/posts/{{ $post->id }}/edit" class="btn btn-warning">Edit</a>
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
+                            @auth
+                                <form action="/posts/{{ $post->id }}" method="post" onsubmit="return confirm('Are you sure want to delete?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    
+                                    <a href="/posts/{{ $post->id }}" class="btn btn-info">Detail</a>
+                                    <a href="/posts/{{ $post->id }}/edit" class="btn btn-warning">Edit</a>
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            @endauth
                         </td>
                     </tr>
                     @endforeach
