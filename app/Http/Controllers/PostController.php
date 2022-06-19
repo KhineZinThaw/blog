@@ -29,10 +29,13 @@ class PostController extends Controller
         // $post->save();
 
         //mass assignment
-        Post::create([
-            'title' => $request->title,
-            'body' => $request->body
-        ]);
+        // Post::create([
+        //     'title' => $request->title,
+        //     'body' => $request->body
+        // ]);
+
+        // use request
+        Post::create($request->only(['title', 'body'])); 
 
         // session()->flash('success', 'A post was created successfully.');
 
@@ -62,10 +65,13 @@ class PostController extends Controller
         // $post->save();
 
         //mass assignment
-        $post->update([
-            'title' => $request->title,
-            'body' => $request->body
-        ]);
+        // $post->update([
+        //     'title' => $request->title,
+        //     'body' => $request->body
+        // ]);
+
+        // use request
+        $post->update($request->only(['title', 'body']));
 
         // session()->flash('success', 'A post was updated successfully.');
 

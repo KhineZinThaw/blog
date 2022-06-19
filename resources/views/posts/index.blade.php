@@ -26,7 +26,7 @@
                     @foreach ($posts as $post)
                     <tr>
                         <td>{{ $post->id }}</td>
-                        <td>{{ $post->title }}</td>
+                        <td>{{ $post->title }} <br>{{ $post->created_at->diffForHumans() }}</td>
                         <td>{{ $post->body }}</td>
                         <td style="width: 300px">
                             <form action="/posts/{{ $post->id }}" method="post" onsubmit="return confirm('Are you sure want to delete?')">
