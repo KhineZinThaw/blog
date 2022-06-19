@@ -21,12 +21,18 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post = new Post;
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->created_at = now();
-        $post->updated_at = now();
-        $post->save();
+        // $post = new Post;
+        // $post->title = $request->title;
+        // $post->body = $request->body;
+        // $post->created_at = now();
+        // $post->updated_at = now();
+        // $post->save();
+
+        //mass assignment
+        Post::create([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
 
         // session()->flash('success', 'A post was created successfully.');
 
@@ -50,10 +56,16 @@ class PostController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::find($id);
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->updated_at = now();
-        $post->save();
+        // $post->title = $request->title;
+        // $post->body = $request->body;
+        // $post->updated_at = now();
+        // $post->save();
+
+        //mass assignment
+        $post->update([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
 
         // session()->flash('success', 'A post was updated successfully.');
 
