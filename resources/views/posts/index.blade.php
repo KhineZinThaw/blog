@@ -4,6 +4,12 @@
 
 @section('content')
     <div class="row justify-content-center py-5">
+        @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ session()->get('success') }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="col-8">
             <h3>Post List</h3>
             <a href="/posts/create" class="btn btn-primary float-end">Create Post</a>
