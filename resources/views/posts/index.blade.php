@@ -11,40 +11,31 @@
             </div>
         @endif
         <div class="col-8">
-            <h3>Post List</h3>
-            <a href="/posts/create" class="btn btn-primary float-end">Create Post</a>
-            <table class="table table-bordered mt-5">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Title</th>
-                        <th>Body</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($posts as $post)
-                    <tr>
-                        <td>{{ $post->id }}</td>
-                        <td>{{ $post->title }} <br>{{ $post->created_at->diffForHumans() }}</td>
-                        <td>{{ $post->body }}</td>
-                        <td style="width: 300px">
-                            @auth
-                                <form action="/posts/{{ $post->id }}" method="post" onsubmit="return confirm('Are you sure want to delete?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    
-                                    <a href="/posts/{{ $post->id }}" class="btn btn-info">Detail</a>
-                                    <a href="/posts/{{ $post->id }}/edit" class="btn btn-warning">Edit</a>
-                                    <button class="btn btn-danger">Delete</button>
-                                </form>
-                            @endauth
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{ $posts->links() }}
+            @foreach ($posts as $post)
+            <div>
+                <h3>
+                    <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
+                </h3>
+                <i>{{ $post->created_at->diffForHumans() }}</i> by {{ $post->author_name }}
+                <p>{{ $post->body }}</p>
+                @auth
+                <div class="d-flex justify-content-end">
+                    <a href="/posts/{{ $post->id }}/edit/" class="btn btn-outline-success">Edit</a>
+                    <form action="/posts/{{ $post->id }}"
+                        method="POST"
+                        onsubmit="return confirm('Are you sure to delete?')">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-outline-danger ms-2">Delete</button>
+                    </form>
+                </div>
+                @endauth
+            </div>
+        
+            <hr>
+        @endforeach
+    
+        {{ $posts->links() }}
         </div>
     </div>
 @endsection

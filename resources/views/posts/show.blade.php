@@ -7,14 +7,13 @@
         <div class="col-8">
             <a href="/posts" class="btn btn-secondary float-end">Back</a>
             <h3>Post Detail</h3>
-            <div class="card p-3 my-3 bg-light">
-                <div class="flex mb-3">
-                    <span><b>Title:</b></span>
-                    <span>{{ $post->title }}</span>
-                </div>
-                <div class="flex mb-3">
-                    <span><b>Body:</b></span>
-                    <span>{{ $post->body }}</span>
+            <div class="card">
+                <div class="card-body">
+                    <h3>{{ $post->title }}</h3>
+                    <p>Post by {{ $post->author_name }} on June 18, 2022</p>
+                    <p>{{ $post->body }}</p>
+                    
+                    <a href="/posts" class="btn btn-outline-secondary">Back</a>
                 </div>
             </div>
         </div>
