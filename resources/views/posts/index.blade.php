@@ -16,7 +16,7 @@
                 <h3>
                     <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
                 </h3>
-                <i>{{ $post->created_at->diffForHumans() }}</i> by {{ $post->author }}
+                <i>{{ $post->created_at->diffForHumans() }}</i> by {{ $post->user->name }}
                 <p>{{ $post->body }}</p>
                 @if($post->isOwnPost())
                 <div class="d-flex justify-content-end">

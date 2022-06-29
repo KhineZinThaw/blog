@@ -21,4 +21,9 @@ class Post extends Model
     {
         return Auth::check() && $this->user_id == Auth::id();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
