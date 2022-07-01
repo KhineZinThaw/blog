@@ -19,6 +19,17 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        <label for="" class="form-label"><b>Categories</b></label>
+                        <select name="categories[]" class="form-control" multiple>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label for="" class="form-label"><b>Body</b></label>
                         <textarea name="body" class="form-control" rows="3" placeholder="Enter Body">{{ old('body') }}</textarea>
                         @error('body')

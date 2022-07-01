@@ -26,4 +26,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function categories()
+    {
+        $categories = Category::select(['categories.*'])
+        ->join('category_post', 'category_post.category_id', 'categories.id')
+        ->where('category_post.post_id', $this->id)
+        ->get();
+
+        return $categories;
+    }
 }
