@@ -39,7 +39,7 @@ class PostController extends Controller
         ]);
 
         foreach($request->categories as $key => $category) {
-            DB::table('category_posts')->insert([
+            DB::table('category_post')->insert([
                 'post_id' => $post->id,
                 'category_id' => $category
             ]);
