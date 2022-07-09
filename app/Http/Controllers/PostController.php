@@ -11,7 +11,12 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        $posts = Post::when(request('search'), function($query, $search) {
+            $query->where('title', 'like', "%$search%");
+        })
+        ->latest('id')
+        ->paginate(10)
+        ->withQueryString();
 
         return view('posts.index', compact('posts'));
     }

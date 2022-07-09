@@ -15,7 +15,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::when(request('search'), function($query, $search) {
+            $query->where('name', 'like', "%$search%");
+        })
+        ->latest('id')
+        ->paginate(5)
+        ->withQueryString();
 
         return view('categories.index', compact('categories'));
     }
@@ -42,7 +47,7 @@ class CategoryController extends Controller
         $catgory->name  = $request->name;
         $catgory->save();
 
-        return redirect('/categories');
+        return redirect('/categories')->with('success', 'Category created successfully!');
     }
 
     /**
@@ -84,7 +89,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        return redirect('/categories');
+        return redirect('/categories')->with('success', 'Category updated successfully!');;
     }
 
     /**
@@ -97,6 +102,6 @@ class CategoryController extends Controller
     {
         Category::destroy($id);
 
-        return redirect('/categories');
+        return redirect('/categories')->with('success', 'Category deleted successfully!');;
     }
 }
