@@ -43,12 +43,14 @@ class PostController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        foreach($request->categories as $key => $category) {
-            DB::table('category_post')->insert([
-                'post_id' => $post->id,
-                'category_id' => $category
-            ]);
-        }
+        $post->categories()->attach($request->categories);
+
+        // foreach($request->categories as $key => $category) {
+        //     DB::table('category_post')->insert([
+        //         'post_id' => $post->id,
+        //         'category_id' => $category
+        //     ]);
+        // }
 
         // use request
         // Post::create($request->only(['title', 'body'])); 
@@ -92,17 +94,18 @@ class PostController extends Controller
 
         // use request
         $post->update($request->only(['title', 'body']));
+        $post->categories()->sync($request->categories);
 
-        DB::table('category_post')
-        ->where('post_id', $post->id)
-        ->delete();
+        // DB::table('category_post')
+        // ->where('post_id', $post->id)
+        // ->delete();
 
-        foreach($request->categories as $category) {
-            DB::table('category_post')->insert([
-                'post_id' => $post->id,
-                'category_id' => $category
-            ]);
-        }
+        // foreach($request->categories as $category) {
+        //     DB::table('category_post')->insert([
+        //         'post_id' => $post->id,
+        //         'category_id' => $category
+        //     ]);
+        // }
 
         // session()->flash('success', 'A post was updated successfully.');
 
