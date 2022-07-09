@@ -4,7 +4,7 @@
 @section('content')
     <div class="row justify-content-center py-5">
         <div class="col-8">
-            <a href="/categories" class="btn btn-secondary float-end">Back</a>
+            <a href="{{ route('categories.index') }}" class="btn btn-secondary float-end">Back</a>
             <h3>Category Detail</h3>
             <div class="card p-3 my-3 bg-light">
                 <div class="flex mb-3">

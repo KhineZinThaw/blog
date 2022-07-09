@@ -5,10 +5,10 @@
 @section('content')
     <div class="row justify-content-center py-5">
         <div class="col-8">
-            <a href="/categories" class="btn btn-secondary float-end">Back</a>
+            <a href="{{ route('categories.index') }}" class="btn btn-secondary float-end">Back</a>
             <h3>Category Create</h3>
             <div class="card p-3 my-3 bg-light">
-                <form action="/categories" method="POST">
+                <form action="{{ route('categories.store') }}" method="POST">
                     @csrf
                     
                     <div class="mb-3">

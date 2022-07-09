@@ -13,7 +13,7 @@
                     <a class="nav-link active" aria-current="page" href="/posts/create">Post Create</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/categories">Categories</a>
+                    <a class="nav-link {{ request()->routeIs('categories.index') ? 'active' : '' }}" href="{{ route('categories.index') }}">Categories</a>
                 </li>
                 @if (Auth::check())
                     <li class="nav-item dropdown">

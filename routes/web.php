@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     }
 // })->where('lang', 'en|my');
 
+//posts
 Route::prefix('posts')->middleware('myAuth')->group(function() {
     Route::get('/', [PostController::class, 'index']);
     Route::get('/create', [PostController::class, 'create']);
@@ -28,25 +29,26 @@ Route::prefix('posts')->middleware('myAuth')->group(function() {
     Route::delete('/{id}', [PostController::class, 'destroy']);
 });
 
-// Route::get('/posts', [PostController::class, 'index']);
-// Route::get('/posts/create', [PostController::class, 'create'])->middleware('myAuth');
-// Route::post('/posts', [PostController::class, 'store']);
-// Route::get('/posts/{id}/edit', [PostController::class, 'edit']);
-// Route::put('/posts/{id}', [PostController::class, 'update']);
-// Route::get('/posts/{id}', [PostController::class, 'show']);
-// Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+// categories 
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
+Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
-//post, category
+//post, category resource route
 // Route::resource('posts', PostController::class);
-Route::resource('categories', CategoryController::class);
+// Route::resource('categories', CategoryController::class);
 
 // register
-Route::get('register', [RegisterController::class, 'create']);
+Route::get('register', [RegisterController::class, 'create'])->name('register');
 Route::post('register', [RegisterController::class, 'store']);
 
 //login
-Route::get('login', [LoginController::class, 'create']);
+Route::get('login', [LoginController::class, 'create'])->name('login');
 Route::post('login', [LoginController::class, 'store']);
-Route::get('logout', [LoginController::class, 'destroy']);
+Route::get('logout', [LoginController::class, 'destroy'])->name('logout');
 
-Route::get('/my-posts', [MyPostController::class, 'index']);
+Route::get('/my-posts', [MyPostController::class, 'index'])->name('my-posts');
