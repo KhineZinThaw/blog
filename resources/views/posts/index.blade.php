@@ -22,27 +22,30 @@
                 </form>
             </div>
             @foreach ($posts as $post)
-            <div>
-                <h3>
-                    <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
-                </h3>
-                <i>{{ $post->created_at->diffForHumans() }}</i> by {{ $post->user->name }}
-                <p>{{ $post->body }}</p>
-                @foreach ($post->categories as $category)
-                    <span class="badge bg-info text-dark">{{ $category->name }}</span>
-                @endforeach
-                @if($post->isOwnPost())
-                <div class="d-flex justify-content-end">
-                    <a href="/posts/{{ $post->id }}/edit/" class="btn btn-outline-success">Edit</a>
-                    <form action="/posts/{{ $post->id }}"
-                        method="POST"
-                        onsubmit="return confirm('Are you sure to delete?')">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger ms-2">Delete</button>
-                    </form>
-                </div>
-                @endif
+            <div class="mt-3">
+                <div class="card">
+                    <img src="{{ $post->image }}" class="card-img-top" alt="Post Image" height="200" class="figure-img img-fluid rounded">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h5>
+                        <i>{{ $post->created_at->diffForHumans() }}</i> by {{ $post->user->name }}
+                        @foreach ($post->categories as $category)
+                        <span class="badge bg-info text-dark">{{ $category->name }}</span>
+                        @endforeach
+                        <p class="card-text">{{ $post->body }}</p>
+                        @if($post->isOwnPost())
+                        <div class="d-flex justify-content-end">
+                            <a href="/posts/{{ $post->id }}/edit/" class="btn btn-outline-success">Edit</a>
+                            <form action="/posts/{{ $post->id }}"
+                                method="POST"
+                                onsubmit="return confirm('Are you sure to delete?')">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger ms-2">Delete</button>
+                            </form>
+                        </div>
+                        @endif
+                    </div>
+                  </div>
             </div>
         
             <hr>

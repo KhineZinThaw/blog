@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
-use App\Models\Category;
 use App\Models\Post;
+use App\Models\Category;
+use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -29,18 +30,17 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        // $post = new Post;
-        // $post->title = $request->title;
-        // $post->body = $request->body;
-        // $post->created_at = now();
-        // $post->updated_at = now();
-        // $post->save();
+        $file = $request->file('image');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $dir = public_path('/upload/images');
+        $file->move($dir, $fileName);
+        $imageUrl = Storage::url("/images/$fileName");
 
         //mass assignment
-        $post = Post::create([
+        $post = auth()->user()->posts()->create([
             'title' => $request->title,
             'body' => $request->body,
-            'user_id' => auth()->id(),
+            'image' => $imageUrl
         ]);
 
         $post->categories()->attach($request->categories);

@@ -8,9 +8,16 @@
             <a href="/posts" class="btn btn-secondary float-end">Back</a>
             <h3>Post Create</h3>
             <div class="card p-3 my-3 bg-light">
-                <form action="/posts" method="post">
+                <form action="/posts" method="post" enctype="multipart/form-data">
                     @csrf
                     
+                    <div class="mb-3">
+                        <label for="" class="form-label"><b>Image</b></label>
+                        <input type="file" name="image" class="form-control">
+                        @error('image')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="mb-3">
                         <label for="" class="form-label"><b>Title</b></label>
                         <input type="text" name="title" class="form-control" placeholder="Enter Title" value="{{ old('title') }}">
