@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->myPosts()->orderBy('id', 'desc')->paginate(5);
     }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

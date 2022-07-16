@@ -1,0 +1,51 @@
+@extends('layouts.master')
+
+@section('title', 'Profile')
+
+@section('content')
+    <div class="row justify-content-center py-5">
+        <div class="col-8">
+            <h3>Profile</h3>
+            <div class="card p-3 my-3 bg-light">
+                <form action="{{ route('profile.upload') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    
+                    <div class="mb-3">
+                        <label for="" class="form-label"><b>Image</b></label>
+                        <input type="file" name="image" class="form-control">
+                        @error('image')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label"><b>Name</b></label>
+                        <input type="text" name="name" class="form-control" value="{{ old('name', Auth::user()->name) }}">
+                        @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label"><b>Email</b></label>
+                        <input type="email" name="email"  class="form-control" value="{{ old('email', Auth::user()->email) }}">
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label"><b>New Password</b></label>
+                        <input type="password" name="password" class="form-control" value="{{ old('password') }}">
+                        @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <input type="submit" value="Create" class="btn btn-primary">
+                            <input type="reset" value="Reset" class="btn btn-secondary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection

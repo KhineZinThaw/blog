@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyPostController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +53,7 @@ Route::post('login', [LoginController::class, 'store']);
 Route::get('logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/my-posts', [MyPostController::class, 'index'])->name('my-posts');
+
+//profile upload
+Route::get('/profile', [ProfileController::class, 'create'])->name('profile');
+Route::post('/profile-upload', [ProfileController::class, 'update'])->name('profile.upload');;

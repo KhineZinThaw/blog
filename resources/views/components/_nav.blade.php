@@ -18,10 +18,16 @@
                 @if (Auth::check())
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @if(Auth::user()->image)
+                            <img src="{{ Storage::url(Auth::user()->image->path) }}" alt="" width="50" height="50" class="rounded">
+                            @else
+                            <img src="images/avatar.jpg" alt="" width="50" height="50" class="rounded">
+                            @endif
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/my-posts">My Posts</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
                             <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         </ul>
                     </li>
