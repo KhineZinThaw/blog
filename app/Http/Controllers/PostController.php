@@ -112,7 +112,7 @@ class PostController extends Controller
         foreach($post->images as $image) {
             // unlink(public_path($image->path));
             Storage::delete($image->path);
-            PostImage::where('post_id', $post->id)->delete();
+            // PostImage::where('post_id', $post->id)->delete();
         }
 
         // upload a image

@@ -10,7 +10,8 @@
                 <form action="{{ route('profile.upload') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     
-                    <div class="mb-3">
+                    <img src="{{ auth()->user()->photo() }}" alt="" width="100">
+                    <div class="mb-3 mt-3">
                         <label for="" class="form-label"><b>Image</b></label>
                         <input type="file" name="image" class="form-control">
                         @error('image')
