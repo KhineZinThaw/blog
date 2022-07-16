@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\PostImage;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -30,18 +31,25 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $file = $request->file('image');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $dir = public_path('/upload/images');
-        $file->move($dir, $fileName);
-        $imageUrl = Storage::url("/images/$fileName");
 
         //mass assignment
         $post = auth()->user()->posts()->create([
             'title' => $request->title,
             'body' => $request->body,
-            'image' => $imageUrl
+            // 'image' => $imageUrl
         ]);
+
+        // upload multiple image
+        foreach($request->file('images') as $file) {
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $dir = '/upload/images';
+        $path = $file->storeAs($dir, $filename);
+
+            PostImage::create([
+                'post_id' => $post->id,
+                'path' => $path
+            ]);
+        }
 
         $post->categories()->attach($request->categories);
 
@@ -95,6 +103,25 @@ class PostController extends Controller
         // use request
         $post->update($request->only(['title', 'body']));
         $post->categories()->sync($request->categories);
+
+        // delete old image
+        foreach($post->images as $image) {
+            // unlink(public_path($image->path));
+            Storage::delete($image->path);
+            PostImage::where('post_id', $post->id)->delete();
+        }
+
+        // upload a image
+        foreach($request->images as $file) {
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $dir = '/upload/images';
+            $path = $file->storeAs($dir, $filename);
+
+            PostImage::create([
+                'post_id' => $post->id,
+                'path' => $path
+            ]);
+        }
 
         // DB::table('category_post')
         // ->where('post_id', $post->id)

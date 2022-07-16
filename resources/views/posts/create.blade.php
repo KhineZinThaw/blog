@@ -13,10 +13,13 @@
                     
                     <div class="mb-3">
                         <label for="" class="form-label"><b>Image</b></label>
-                        <input type="file" name="image" class="form-control">
-                        @error('image')
+                        <input type="file" name="images[]" class="form-control" multiple>
+                        @error('images')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
+                        @foreach($errors->get('images.*') as $message)
+                            <span class="text-danger">{{ $message[0] }}</span>
+                        @endforeach
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label"><b>Title</b></label>

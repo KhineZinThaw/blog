@@ -12,6 +12,16 @@
                     @method('PUT')
                     
                     <div class="mb-3">
+                        <label for="" class="form-label"><b>Image</b></label>
+                        <input type="file" name="images[]" class="form-control" multiple>
+                        @error('images')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        @foreach($errors->get('images.*') as $message)
+                            <span class="text-danger">{{ $message[0] }}</span>
+                        @endforeach
+                    </div>
+                    <div class="mb-3">
                         <label for="" class="form-label"><b>Title</b></label>
                         <input type="text" name="title" class="form-control" placeholder="Enter Title" value="{{ $post->title }}">
                         @error('title')

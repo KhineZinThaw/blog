@@ -24,7 +24,11 @@
             @foreach ($posts as $post)
             <div class="mt-3">
                 <div class="card">
-                    <img src="{{ $post->image }}" class="card-img-top" alt="Post Image" height="200" class="figure-img img-fluid rounded">
+                    @if($post->images()->exists())
+                    {{-- <img src="{{ $post->images->first()->path }}" class="card-img-top" alt="..."> --}}
+                        {{-- <img src="{{ $post->images[0]->path }}" class="card-img-top" alt="..."> --}}
+                        <img src="{{ Storage::url($post->images[0]->path) }}" class="card-img-top" alt="...">
+                    @endif
                     <div class="card-body">
                         <h5 class="card-title"><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h5>
                         <i>{{ $post->created_at->diffForHumans() }}</i> by {{ $post->user->name }}
