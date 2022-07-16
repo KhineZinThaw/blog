@@ -45,9 +45,13 @@ class PostController extends Controller
         $dir = '/upload/images';
         $path = $file->storeAs($dir, $filename);
 
-            PostImage::create([
-                'post_id' => $post->id,
-                'path' => $path
+            // PostImage::create([
+            //     'post_id' => $post->id,
+            //     'path' => $path
+            // ]);
+
+            $post->images()->create([
+                'path' => $path,
             ]);
         }
 
@@ -117,9 +121,13 @@ class PostController extends Controller
             $dir = '/upload/images';
             $path = $file->storeAs($dir, $filename);
 
-            PostImage::create([
-                'post_id' => $post->id,
-                'path' => $path
+            // PostImage::create([
+            //     'post_id' => $post->id,
+            //     'path' => $path
+            // ]);
+
+            $post->images()->create([
+                'path' => $path,
             ]);
         }
 
