@@ -5,7 +5,7 @@
 @section('content')
     <div class="row justify-content-center py-5">
         <div class="col-8">
-            <h3>Profile</h3>
+            <h3>Profile Edit</h3>
             <div class="card p-3 my-3 bg-light">
                 <form action="{{ route('profile.upload') }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -33,16 +33,9 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="" class="form-label"><b>New Password</b></label>
-                        <input type="password" name="password" class="form-control" value="{{ old('password') }}">
-                        @error('password')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
                         <div class="d-flex justify-content-between">
-                            <input type="submit" value="Create" class="btn btn-primary">
-                            <input type="reset" value="Reset" class="btn btn-secondary">
+                            <input type="submit" value="Update" class="btn btn-primary">
+                            <a href="{{ route('profile.show') }}" class="btn btn-secondary">Back</a>
                         </div>
                     </div>
                 </form>

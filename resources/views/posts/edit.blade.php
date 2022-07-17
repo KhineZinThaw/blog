@@ -7,7 +7,7 @@
             <a href="/posts" class="btn btn-secondary float-end">Back</a>
             <h3>Post Edit</h3>
             <div class="card p-3 my-3 bg-light">
-                <form action="/posts/{{ $post->id }}" method="post">
+                <form action="/posts/{{ $post->id }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     

@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-
 
 // Route::get('/welcome/{lang}', function($lang) {
 //     if ($lang == 'en') {
@@ -54,6 +55,13 @@ Route::get('logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/my-posts', [MyPostController::class, 'index'])->name('my-posts');
 
-//profile upload
-Route::get('/profile', [ProfileController::class, 'create'])->name('profile');
-Route::post('/profile-upload', [ProfileController::class, 'update'])->name('profile.upload');;
+Route::middleware('auth')->group(function() {
+    //profile upload
+    Route::get('/profile', [ProfileController::class, 'create'])->name('profile');
+    Route::post('/profile-upload', [ProfileController::class, 'update'])->name('profile.upload');
+    Route::get('/profile-show', [ProfileController::class, 'show'])->name('profile.show');
+
+    //change password
+    Route::get('/change-password', [ChangePasswordController::class, 'edit'])->name('change-password.edit');
+    Route::post('/change-password', [ChangePasswordController::class, 'update'])->name('change-password.update');
+});

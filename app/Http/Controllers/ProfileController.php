@@ -12,6 +12,11 @@ class ProfileController extends Controller
         return view('users.profile');
     }
 
+    public function show()
+    {
+        return view('users.show-profile');
+    }
+
     public function update(ProfileRequest $request)
     {
         $user = auth()->user();
@@ -35,9 +40,8 @@ class ProfileController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
         ]);
 
-        return back()->with('success', 'A Profile was updated successfully.');
+        return redirect(route('profile.show'))->with('success', 'A Profile was updated successfully.');
     }
 }
