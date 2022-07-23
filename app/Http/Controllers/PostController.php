@@ -31,7 +31,7 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-
+        dd($request->all());
         //mass assignment
         $post = auth()->user()->posts()->create([
             'title' => $request->title,
