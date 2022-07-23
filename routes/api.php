@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ProductController;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,6 @@ Route::get('posts', function() {
 });
 
 Route::apiResource('category', CategoryController::class);
+
+//product
+Route::apiResource('product', ProductController::class);
