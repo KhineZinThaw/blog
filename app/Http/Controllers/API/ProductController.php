@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
 use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
@@ -17,15 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::paginate(5)
-                ->map(function($product) {
-                    return [
-                        'id' => $product->id,
-                        'name' => $product->name,
-                        'price' => number_format($product->price),
-                        'created_at' => $product->created_at->toFormattedDateString(),
-                    ];
-                });
+        $products = Product::all();
+
+        return ProductResource::collection($products);
     }
 
     /**
@@ -47,24 +42,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product =  Product::all()
-                ->filter(function($product) use ($id) {
-                    return $product->id == $id;
-                })
-                ->map(function($product) {
-                    return [
-                        'id' => $product->id,
-                        'name' => $product->name,
-                        'price' => number_format($product->price),
-                        'created_at' => $product->created_at->toFormattedDateString(),
-                    ];
-                });
+        $product =  Product::find($id);
 
         if (! $product) {
             return response()->json([], 404);
         }
 
-        return $product;
+        return ProductResource::make($product);
+        // return new ProductResource($product);
     }
 
     /**
